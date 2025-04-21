@@ -60,6 +60,13 @@ export const config = {
     //     browserName: 'MicrosoftEdge'
     // }],
 
+    capabilities: [{
+        browserName: 'chrome',
+            'goog:chromeOptions': {
+                args: ['--window-size=1440,900'] // width,height
+            }
+    }],
+
     //
     // ===================
     // Test Configurations

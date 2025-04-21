@@ -63,7 +63,9 @@ export const config = {
     capabilities: [{
         browserName: 'chrome',
             'goog:chromeOptions': {
-                args: ['--window-size=1440,900'] // width,height
+                args: [
+                    '--headless',
+                    '--window-size=1440,900'] // width,height
             }
     }],
 

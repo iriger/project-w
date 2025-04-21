@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: run tests
-        run: npm run test:local
+        run: npm run test:chrome
         env:
           BASE_URL: ${{secrets.BASE_URL}}
 

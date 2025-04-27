@@ -65,7 +65,15 @@ export const config = {
             'goog:chromeOptions': {
                 args: [
                     '--headless',
-                    '--window-size=1440,900'] // width,height
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                    '--window-size=1440,900'
+                    // ,
+                    // '--disable-extensions',
+                    // '--disable-web-security',
+                    // '--disable-features=IsolateOrigins,site-per-process'
+                    ] // width,height
             }
     }],
 
@@ -105,7 +113,7 @@ export const config = {
     baseUrl: process.env.BASE_URL,
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 20000,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
@@ -147,7 +155,7 @@ export const config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 100000
+        timeout: 200000
     },
 
     //
@@ -244,11 +252,11 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
-        if (!passed) {
-            await browser.takeScreenshot();
-        }
-    },
+    // afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+    //     if (!passed) {
+    //         await browser.takeScreenshot();
+    //     }
+    // },
 
 
     /**

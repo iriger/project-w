@@ -8,35 +8,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # env:
-    #   BASE_URL: "https://telnyx.com/"
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: run tests
-        run: npm run test
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Run tests and generate report in Docker
         env:
           BASE_URL: ${{secrets.BASE_URL}}
-
-      - name: Install Allure
-        run: npm install -D allure-commandline
-
-      - name: Generate Allure report
         run: |
-          npm run allure:generate
+          docker-compose up
+      
+      - name: Prepare report for GitHub Pages
+        run: |
           mkdir -p public/allure-report
-          mv allure-report/* public/allure-report/
-
+          cp -r allure-report/* public/allure-report/ || echo "No report generated"
+      
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -44,3 +34,69 @@ jobs:
           publish_dir: ./public/allure-report
           publish_branch: gh-pages
           force_orphan: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: add report to GitHub pages
+# 
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     # env:
+#     #   BASE_URL: "https://telnyx.com/"
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: run tests
+#         run: npm run test
+#         env:
+#           BASE_URL: ${{secrets.BASE_URL}}
+
+#       - name: Install Allure
+#         run: npm install -D allure-commandline
+
+#       - name: Generate Allure report
+#         run: |
+#           npm run allure:generate
+#           mkdir -p public/allure-report
+#           mv allure-report/* public/allure-report/
+
+#       - name: Deploy report to GitHub Pages
+#         uses: peaceiris/actions-gh-pages@v4
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           publish_dir: ./public/allure-report
+#           publish_branch: gh-pages
+#           force_orphan: true

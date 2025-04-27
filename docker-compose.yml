@@ -4,6 +4,7 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+      - ./allure-report:/app/allure-report
     environment:
       - BASE_URL=${BASE_URL}
       - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64

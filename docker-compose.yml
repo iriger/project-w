@@ -1,0 +1,20 @@
+services:
+  wdio-tests:
+    image: node:18-bullseye
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - BASE_URL=${BASE_URL}
+      - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+    command: >
+      bash -c "apt-get update &&
+      apt-get install -y wget gnupg2 ca-certificates &&
+      wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - &&
+      echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list &&
+      apt-get update &&
+      apt-get install -y google-chrome-stable openjdk-11-jdk &&
+      npm install &&
+      npm run test &&
+      npm install -g allure-commandline &&
+      allure generate allure-results --clean -o allure-report"

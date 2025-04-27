@@ -5,7 +5,7 @@ import PricingPage from "../pageobjects/pricing.page.js";
 import SolutionsPage from "../pageobjects/solutions.page.js";
 import NotificationsPage from "../pageobjects/notifications.page.js";
 
-describe("Testing Telnyx web-site", () => {
+describe("Testing Telnyx solutions page", () => {
 
   const homePage = new HomePage();
   const pricingPage = new PricingPage();

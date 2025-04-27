@@ -68,12 +68,8 @@ export const config = {
                     '--no-sandbox',
                     '--disable-dev-shm-usage',
                     '--disable-gpu',
-                    '--window-size=1440,900'
-                    // ,
-                    // '--disable-extensions',
-                    // '--disable-web-security',
-                    // '--disable-features=IsolateOrigins,site-per-process'
-                    ] // width,height
+                    '--window-size=1440,900'   
+                    ] 
             }
     }],
 
